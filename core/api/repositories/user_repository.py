@@ -10,5 +10,5 @@ class UserRepository:
     async def get_users(self) -> List[User]:
         stmt = select(User).order_by(User.id)
         result = await self.session.execute(stmt)
-        users = result.scalars.all()
+        users = result.scalars().all()
         return list(users)

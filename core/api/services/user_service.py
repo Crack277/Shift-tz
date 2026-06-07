@@ -5,7 +5,7 @@ from core.models.user import User
 
 class UserService:
     def __init__(self, session: AsyncSession):
-        self.repository = UserRepository
+        self.repository = UserRepository(session)
         self.session = session
     
     async def get_users(self) -> List[User]:
