@@ -1,6 +1,5 @@
-from fastapi import FastAPI
 import uvicorn
-
+from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from core.api import router as api_router
@@ -16,7 +15,6 @@ async def lifespan(app: FastAPI):
     yield
 
     await db_helper.engine.dispose()
-
 
 
 app = FastAPI(lifespan=lifespan)

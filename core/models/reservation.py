@@ -1,8 +1,7 @@
-from datetime import datetime
+from datetime import date as DATE
 from typing import TYPE_CHECKING
 
-
-from sqlalchemy import ForeignKey, DateTime
+from sqlalchemy import Date, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -10,21 +9,29 @@ from .base import Base
 if TYPE_CHECKING:
     from .user import User
     from .room import Room
-    from .time_slot import Time_Slot
+    from .time_slot import TimeSlot
 
 
 class Reservation(Base):
-    date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    """Модель бронирования переговорной комнаты"""
+
+    date: Mapped[DATE] = mapped_column(
+        Date,
+        nullable=False,
+        default=DATE.today,
+    )
 
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id"),
-        unique=True,
+        nullable=False,
     )
     room_id: Mapped[int] = mapped_column(
         ForeignKey("rooms.id"),
+        nullable=False,
     )
     time_slot_id: Mapped[int] = mapped_column(
-        ForeignKey("time_slots.id"),
+        ForeignKey("timeslots.id"),
+        nullable=False,
     )
 
     user: Mapped["User"] = relationship(
@@ -35,7 +42,7 @@ class Reservation(Base):
         back_populates="reservation",
         foreign_keys=[room_id],
     )
-    time_slot: Mapped["Time_Slot"] = relationship(
+    time_slot: Mapped["TimeSlot"] = relationship(
         back_populates="reservation",
         foreign_keys=[time_slot_id],
     )

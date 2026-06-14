@@ -1,12 +1,17 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
 
+
 class Base(DeclarativeBase):
+    """
+    Абстрактная базовая модель.
+    Все модели наследуются от нее.
+    """
     __abstract__ = True
-    
+
     @declared_attr.directive
     def __tablename__(cls):
-        # При инициализации класса 
+        # При инициализации класса
         # возвращает его название в нижнем регистре + 's'
         return f"{cls.__name__.lower()}s"
-    
+
     id: Mapped[int] = mapped_column(primary_key=True)

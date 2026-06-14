@@ -10,6 +10,10 @@ from core.config import settings
 
 
 class DatabaseHelper:
+    """
+    Помощник для управления подключением к БД.
+    Обеспечивает создание и управление сессиями.
+    """
     def __init__(self, url: str, echo: bool = False):
         self.engine = create_async_engine(
             url=url,
@@ -33,5 +37,6 @@ class DatabaseHelper:
         finally:
             await session.close()
             await self.scoped_session.remove()
-            
+
+
 db_helper = DatabaseHelper(url=settings.db.url, echo=settings.db.echo)

@@ -10,7 +10,10 @@ if TYPE_CHECKING:
     from .room import Room
     from .reservation import Reservation
 
-class Time_Slot(Base):
+
+class TimeSlot(Base):
+    """Модель временного слота (например, 09:00-11:00)"""
+
     start_time: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     end_time: Mapped[datetime] = mapped_column(DateTime, nullable=False)
 

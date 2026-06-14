@@ -1,10 +1,12 @@
 __all__ = (
     "Base",
+    "User",
     "Room",
     "Reservation",
-    "Time_Slot",
+    "TimeSlot",
 )
 from .base import Base
+from .user import User
 from .reservation import Reservation
 from .room import Room
-from .time_slot import Time_Slot
+from .time_slot import TimeSlot
